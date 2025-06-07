@@ -4,6 +4,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import pickle
 import numpy as np
+import os
 
 app = Flask(__name__)
 
@@ -18,6 +19,7 @@ max_len = 100  # sesuai saat training
 def predict():
     try:
         data = request.get_json()
+        print("Received data:", data)
         text = data.get("text", "")
         if not text:
             return jsonify({"error": "Text input is required"}), 400
@@ -39,4 +41,5 @@ def predict():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0", port=5000)
+    port = int(os.environ.get("PORT", 5000))  # Gunakan PORT dari Railway
+    app.run(debug=False, host="0.0.0.0", port=port)
