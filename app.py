@@ -8,9 +8,12 @@ import os
 
 app = Flask(__name__)
 
-# Load model dan tokenizer
-model = load_model('model/model_lstm_stress.h5')
-with open('model/tokenizer_stress.pkl', 'rb') as f:
+# Load model dan tokenizer dengan path absolut
+MODEL_PATH = os.path.join(os.path.dirname(__file__), 'model', 'model_lstm_stress.h5')
+TOKENIZER_PATH = os.path.join(os.path.dirname(__file__), 'model', 'tokenizer_stress.pkl')
+
+model = load_model(MODEL_PATH)
+with open(TOKENIZER_PATH, 'rb') as f:
     tokenizer = pickle.load(f)
 
 max_len = 100  # sesuai saat training
