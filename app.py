@@ -8,7 +8,7 @@ import numpy as np
 import os
 
 app = Flask(__name__)
-CORS(app, resources={r"/predict": {"origins": "https://stress-chat-detector.vercel.app"}})
+CORS(app, resources={r"/predict": {"origins": "https://stress-chat-detector.vercel.app", "methods": ["POST", "OPTIONS"], "allow_headers": "*"}}, supports_credentials=True)
 
 # Load model dan tokenizer dengan path absolut
 MODEL_PATH = os.path.join(os.path.dirname(__file__), 'model', 'model_lstm_stress.h5')
