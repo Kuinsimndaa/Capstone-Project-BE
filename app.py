@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from preprocessing import preprocess
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -7,6 +8,7 @@ import numpy as np
 import os
 
 app = Flask(__name__)
+CORS(app, resources={r"/predict": {"origins": "https://stress-chat-detector.vercel.app"}})
 
 # Load model dan tokenizer dengan path absolut
 MODEL_PATH = os.path.join(os.path.dirname(__file__), 'model', 'model_lstm_stress.h5')
